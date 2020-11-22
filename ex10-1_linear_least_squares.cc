@@ -13,25 +13,25 @@
 #include <vector>
 #include <numeric>
 
-double determinant(std::vector<std::vector<double>>& arr);
-std::vector<std::vector<double>> inverse(std::vector< std::vector<double>>& arr);
-std::vector<double> dot_product(std::vector<std::vector<double>>& a, std::vector<double>& b); 
+double determinant(std::vector<std::vector<double> > arr_);
+std::vector<std::vector<double> > inverse(std::vector< std::vector<double> > arr_);
+std::vector<double> dot_product(std::vector<std::vector<double> > a_, std::vector<double> b_); 
 
 int main() {
 
-  int i, j;
+  int i;
 
   // The state vector (alpha and beta)
   std::vector<double> state;
   // The inverse of the information matrix (A^T * A)^-1
-  std::vector<std::vector<double>> inv;
+  std::vector<std::vector<double> > inv;
 
   // The observed values of x and y
   std::vector<double> x_obs = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0};
   std::vector<double> y_obs = {1.0, 1.0, 2.0, 3.0, 3.0, 4.0, 4.0, 6.0};
 
   // The two components of the general solution (A^T * A, and A^T * B)
-  std::vector<std::vector<double>> ata = {{0.0, 0.0},{0.0, 0.0}};
+  std::vector<std::vector<double> > ata = {{0.0, 0.0},{0.0, 0.0}};
   std::vector<double> atb = {0.0, 0.0};
 
   // fill ata and atb
@@ -57,50 +57,49 @@ int main() {
   std::cout << "beta  " << state[1] << std::endl;
 }
 
-double determinant(std::vector<std::vector<double> >& arr) {
+double determinant(std::vector<std::vector<double> > arr_) {
   // Calculate the determinant of a 2x2 matrix
-  double det;
+  double det_;
 
-  det = (arr[0][0] * arr[1][1]) - (arr[0][1] * arr[1][0]);
+  det_ = (arr_[0][0] * arr_[1][1]) - (arr_[0][1] * arr_[1][0]);
 
-  return det;
+  return det_;
 }
 
-std::vector<std::vector<double>> inverse(std::vector<std::vector<double>>& arr) {
+std::vector<std::vector<double> > inverse(std::vector<std::vector<double> > arr_) {
   // Calculate the inverse of a 2x2 matrix
 
   int i, j;
   // tmp variable to store matrix elements
-  double tmp;  
-  std::vector<std::vector<double>> inv = arr;
+  std::vector<std::vector<double> > inv_ = arr_;
   
-  double det = determinant(arr);
+  double det_ = determinant(arr_);
 
-  inv[0][0] = arr[1][1];
-  inv[1][1] = arr[0][0];
-  inv[0][1] = -arr[1][0];
-  inv[1][0] = -arr[0][1];
+  inv_[0][0] = arr_[1][1];
+  inv_[1][1] = arr_[0][0];
+  inv_[0][1] = -arr_[1][0];
+  inv_[1][0] = -arr_[0][1];
 
 
   for ( i = 0; i < 2; i++ ) {
     for ( j = 0; j < 2; j++ ) {
-      inv[i][j] = inv[i][j] / det;
+      inv_[i][j] = inv_[i][j] / det_;
     }
   }
 
-  return inv;
+  return inv_;
 }
 
-std::vector<double> dot_product(std::vector<std::vector<double>>& a, 
-                                  std::vector<double>& b) {
+std::vector<double> dot_product(std::vector<std::vector<double> > a_, 
+                                  std::vector<double> b_) {
   // calculate the dot production of a 2x2 matrix with a 1x2 vector
                           
-  std::vector<double> result = {0.0, 0.0};
-  std::vector<double> a0 = {a[0][0], a[0][1]};
-  std::vector<double> a1 = {a[1][0], a[1][1]};
+  std::vector<double> result_ = {0.0, 0.0};
+  std::vector<double> a0_ = {a_[0][0], a_[0][1]};
+  std::vector<double> a1_ = {a_[1][0], a_[1][1]};
 
-  result[0] = std::inner_product(a0.begin(),a0.end(),b.begin(),0.0);
-  result[1] = std::inner_product(a1.begin(),a1.end(),b.begin(),0.0);
+  result_[0] = std::inner_product(a0_.begin(),a0_.end(),b_.begin(),0.0);
+  result_[1] = std::inner_product(a1_.begin(),a1_.end(),b_.begin(),0.0);
 
-  return result;
+  return result_;
 }

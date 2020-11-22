@@ -15,13 +15,13 @@
 #include <algorithm>
 #include <tuple>
 
-double determinant(std::vector<std::vector<double>> arr);
-std::vector<std::vector<double>> inverse(std::vector< std::vector<double>> arr);
-std::vector<double> dot_product(std::vector<std::vector<double>> a, std::vector<double> b); 
+double determinant(std::vector<std::vector<double> > arr);
+std::vector<std::vector<double> > inverse(std::vector< std::vector<double> > arr);
+std::vector<double> dot_product(std::vector<std::vector<double> > a, std::vector<double> b); 
 std::vector<double> propagate(std::vector<double> state_, std::vector<double> xobs_);
 std::vector<double> residuals(std::vector<double> yobs_, std::vector<double> yexp_);
 double root_mean_sq(std::vector<double> res_);
-std::tuple< std::vector<std::vector<double>>, std::vector<double> > 
+std::tuple< std::vector<std::vector<double> >, std::vector<double> > 
                         fill_ata_atb(std::vector<double> xobs_, std::vector<double> yobs_); 
 
 int main() {
@@ -32,7 +32,7 @@ int main() {
   std::vector<double> state;
   // The inverse of the information matrix (A^T * A)^-1
   // i.e. the covariance matrix without weighting
-  std::vector<std::vector<double>> inv;
+  std::vector<std::vector<double> > inv;
 
   // The observed values of x  
   std::vector<double> xobs = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0};
@@ -40,7 +40,7 @@ int main() {
   std::vector<double> yobs = {1.0, 1.0, 2.0, 3.0, 3.0, 4.0, 7.0, 6.0};
 
   // The two components of the general solution (A^T * A, and A^T * b)
-  std::vector<std::vector<double>> ata;
+  std::vector<std::vector<double> > ata;
   std::vector<double> atb;
 
   // The expected values after propagation
@@ -61,7 +61,7 @@ int main() {
  
   // Complete two iterations of the propgate and fit algorithm
   for ( i = 0; i < 2; i++ ) {
-    std::cout << "\n********* Loop #" << i + 1 << "*********" <<std::endl;
+    std::cout << "\n********* Loop #" << i + 1 << " *********" <<std::endl;
     // Remove observed value with residuals outside 2*RMS
     // This will have no affect during the first iteration, if initialised 
     // RMS >= residuals.
@@ -125,14 +125,14 @@ int main() {
   }
 }
 
-std::tuple< std::vector<std::vector<double>>, std::vector<double> > 
+std::tuple< std::vector<std::vector<double> >, std::vector<double> > 
             fill_ata_atb(std::vector<double> xobs_, std::vector<double> yobs_) {
   int i;
   // Fill the matrix components of the general solution, as shown in Vallado
   // Exercise 10-2.
 
   // The two components of the general solution (A^T * A, and A^T * B)
-  std::vector<std::vector<double>> ata_ = {{0.0, 0.0},{0.0, 0.0}};
+  std::vector<std::vector<double> > ata_ = {{0.0, 0.0},{0.0, 0.0}};
   std::vector<double> atb_ = {0.0, 0.0};
   // fill ata and atb
   for ( i = 0; i < xobs_.size(); i++ ) {
@@ -156,10 +156,10 @@ double determinant(std::vector<std::vector<double> > arr) {
   return det;
 }
 
-std::vector<std::vector<double>> inverse(std::vector<std::vector<double>> arr) {
+std::vector<std::vector<double> > inverse(std::vector<std::vector<double> > arr) {
   // Calculate the inverse of a 2x2 matrix
 
-  std::vector<std::vector<double>> inv(arr[0].size(), std::vector<double>(arr[1].size()));
+  std::vector<std::vector<double> > inv(arr[0].size(), std::vector<double>(arr[1].size()));
   
   double det = determinant(arr);
 
@@ -171,7 +171,7 @@ std::vector<std::vector<double>> inverse(std::vector<std::vector<double>> arr) {
   return inv;
 }
 
-std::vector<double> dot_product(std::vector<std::vector<double>> a, 
+std::vector<double> dot_product(std::vector<std::vector<double> > a, 
                                   std::vector<double> b) {
   // calculate the dot production of a 2x2 matrix with a 1x2 vector
                           
@@ -208,7 +208,7 @@ std::vector<double> residuals(std::vector<double> yobs_,
   std::vector<double> res_(yobs_.size(), 0.0);
 
   std::transform(yobs_.cbegin(), yobs_.cend(), 
-                   yexp_.cbegin(), res_.begin(), std::minus<>{});
+                   yexp_.cbegin(), res_.begin(), std::minus<double>());
 
   return res_;  
 }
@@ -218,7 +218,7 @@ double root_mean_sq(std::vector<double> res_) {
   double rms_;
   std::vector<double> ressq(res_.size(), 0.0);
   std::transform(res_.cbegin(), res_.cend(),
-                   res_.cbegin(), ressq.begin(), std::multiplies<>{});
+                   res_.cbegin(), ressq.begin(), std::multiplies<double>());
   rms_ = std::accumulate(ressq.begin(), ressq.end(), 0.0) / res_.size();
   rms_ = std::sqrt(rms_);
 
