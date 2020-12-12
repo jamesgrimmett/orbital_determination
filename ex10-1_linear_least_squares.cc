@@ -3,11 +3,6 @@
 // 2x2 and 1x2 vectors as input. For parameter estimation with two variables
 // vectors of those dimensions are guaranteed.
 
-// TO DO: 
-// Makefile
-// gitignore
-// read/write : https://www.gormanalysis.com/blog/reading-and-writing-csv-files-with-cpp/
-
 #include <iostream>
 #include <cmath>
 #include <vector>

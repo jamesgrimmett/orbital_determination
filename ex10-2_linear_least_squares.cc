@@ -3,11 +3,6 @@
 // 2x2 and 1x2 vectors as input. These dimensions are guaranteed for 
 // parameter estimation with two variables
 
-// TO DO: 
-// Makefile
-// gitignore
-// read/write : https://www.gormanalysis.com/blog/reading-and-writing-csv-files-with-cpp/
-
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -59,7 +54,7 @@ int main() {
   double stdev_a;
   double stdev_b;
  
-  // Complete two iterations of the propgate and fit algorithm
+  // Complete two iterations of the propagate and fit algorithm
   for ( i = 0; i < 2; i++ ) {
     std::cout << "\n********* Loop #" << i + 1 << " *********" <<std::endl;
     // Remove observed value with residuals outside 2*RMS
