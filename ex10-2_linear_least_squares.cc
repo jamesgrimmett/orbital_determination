@@ -1,7 +1,6 @@
 // Linear Least Squares parameter estimation. Example 10-2 of Vallado 4ed.
-// Note: the determinant, inverse, and dot product functions can only take
-// 2x2 and 1x2 vectors as input. These dimensions are guaranteed for 
-// parameter estimation with two variables
+// Note: the determinant, inverse, and dot product functions are written
+// specifically for this problem and can only take 2x2 and 1x2 vectors as input. 
 
 #include <iostream>
 #include <cmath>
