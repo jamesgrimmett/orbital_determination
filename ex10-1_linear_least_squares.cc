@@ -1,4 +1,5 @@
 // Linear Least Squares parameter estimation. Example 10-1 of Vallado 4ed.
+// Essentially just linear regression solved using the normal equations.
 // Note: the determinant, inverse, and dot product functions are written
 // specifically for this problem and can only take 2x2 and 1x2 vectors as input. 
 

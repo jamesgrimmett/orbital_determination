@@ -1,4 +1,6 @@
 // Linear Least Squares parameter estimation. Example 10-2 of Vallado 4ed.
+// Similar to Example 10-1 but with the weighting matrix included in the 
+// normal equation. 
 // Note: the determinant, inverse, and dot product functions are written
 // specifically for this problem and can only take 2x2 and 1x2 vectors as input. 
 
